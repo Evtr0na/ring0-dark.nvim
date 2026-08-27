@@ -10,6 +10,7 @@ theme.set_highlights = function()
 	----------------------------------------------------------------
 
 	hl(0, "Pmenu", {
+
 		fg = c.fg,
 		bg = c.bg,
 	})
