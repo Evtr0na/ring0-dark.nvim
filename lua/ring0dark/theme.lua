@@ -6,6 +6,42 @@ local theme = {}
 
 theme.set_highlights = function()
 	----------------------------------------------------------------
+	-- Completion menu
+	----------------------------------------------------------------
+
+	hl(0, "Pmenu", {
+		fg = c.fg,
+		bg = c.bg,
+	})
+
+	hl(0, "PmenuSel", {
+		fg = c.fg_bright,
+		bg = c.gray,
+		bold = true,
+	})
+	hl(0, "PmenuSbar", {
+		bg = c.bg,
+	})
+
+	hl(0, "PmenuThumb", {
+		bg = c.gray,
+	})
+
+	----------------------------------------------------------------
+	-- Floating documentation
+	----------------------------------------------------------------
+
+	hl(0, "NormalFloat", {
+		fg = c.fg,
+		bg = c.bg,
+	})
+
+	hl(0, "FloatBorder", {
+		fg = c.quartz,
+		bg = c.bg,
+	})
+
+	----------------------------------------------------------------
 	-- Editor UI
 	----------------------------------------------------------------
 
@@ -14,9 +50,14 @@ theme.set_highlights = function()
 		bg = c.bg,
 	})
 
+	hl(0, "Folded", {
+		fg = c.quartz,
+		bg = c.bg,
+	})
+
 	hl(0, "NormalFloat", {
 		fg = c.fg,
-		bg = c.bg_darker,
+		bg = c.bg,
 	})
 
 	hl(0, "FloatBorder", {
@@ -36,7 +77,7 @@ theme.set_highlights = function()
 
 	hl(0, "Pmenu", {
 		fg = c.fg,
-		bg = c.bg_darker,
+		bg = c.bg,
 	})
 
 	hl(0, "SignColumn", {
