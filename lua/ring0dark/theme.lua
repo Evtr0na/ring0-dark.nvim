@@ -6,6 +6,95 @@ local theme = {}
 
 theme.set_highlights = function()
 	----------------------------------------------------------------
+	-- render-markdown.nvim
+	--
+	-- Markdown render layer:
+	-- strictly ring0 white on ring0 black.
+	----------------------------------------------------------------
+
+	local render_markdown_groups = {
+		------------------------------------------------------------
+		-- Headings
+		------------------------------------------------------------
+		"RenderMarkdownH1",
+		"RenderMarkdownH2",
+		"RenderMarkdownH3",
+		"RenderMarkdownH4",
+		"RenderMarkdownH5",
+		"RenderMarkdownH6",
+
+		"RenderMarkdownH1Bg",
+		"RenderMarkdownH2Bg",
+		"RenderMarkdownH3Bg",
+		"RenderMarkdownH4Bg",
+		"RenderMarkdownH5Bg",
+		"RenderMarkdownH6Bg",
+
+		------------------------------------------------------------
+		-- Code
+		------------------------------------------------------------
+		"RenderMarkdownCode",
+		"RenderMarkdownCodeInfo",
+		"RenderMarkdownCodeBorder",
+		"RenderMarkdownCodeFallback",
+		"RenderMarkdownCodeInline",
+
+		------------------------------------------------------------
+		-- Lists / checkbox
+		------------------------------------------------------------
+		"RenderMarkdownBullet",
+		"RenderMarkdownUnchecked",
+		"RenderMarkdownChecked",
+		"RenderMarkdownTodo",
+
+		------------------------------------------------------------
+		-- Table
+		------------------------------------------------------------
+		"RenderMarkdownTableHead",
+		"RenderMarkdownTableRow",
+
+		------------------------------------------------------------
+		-- Quote / links / misc
+		------------------------------------------------------------
+		"RenderMarkdownQuote",
+		"RenderMarkdownQuote1",
+		"RenderMarkdownQuote2",
+		"RenderMarkdownQuote3",
+		"RenderMarkdownQuote4",
+		"RenderMarkdownQuote5",
+		"RenderMarkdownQuote6",
+
+		"RenderMarkdownDash",
+		"RenderMarkdownSign",
+		"RenderMarkdownMath",
+		"RenderMarkdownIndent",
+
+		"RenderMarkdownHtmlComment",
+
+		"RenderMarkdownLink",
+		"RenderMarkdownLinkTitle",
+		"RenderMarkdownWikiLink",
+
+		"RenderMarkdownInlineHighlight",
+
+		------------------------------------------------------------
+		-- Callout
+		------------------------------------------------------------
+		"RenderMarkdownSuccess",
+		"RenderMarkdownInfo",
+		"RenderMarkdownHint",
+		"RenderMarkdownWarn",
+		"RenderMarkdownError",
+	}
+
+	for _, group in ipairs(render_markdown_groups) do
+		hl(0, group, {
+			fg = c.white,
+			bg = c.bg,
+		})
+	end
+
+	----------------------------------------------------------------
 	-- Completion menu
 	----------------------------------------------------------------
 
