@@ -1,12 +1,14 @@
 local colors = {
   -- ring0-dark base colors
-  fg = "#cdd6f4",
-  fg_bright = "#f4f4ff",
-  white = "#ffffff",
-  black = "#000000",
+  -- Unified soft white requested for editor text and popup accents.
+  fg = "#E0E2EA",
+  fg_bright = "#E0E2EA",
+  white = "#E0E2EA",
 
+  -- Ring0 uses a single black everywhere: no #000000 / #101010 split.
+  black = "#181818",
   bg = "#181818",
-  bg_darker = "#101010",
+  bg_darker = "#181818",
   bg1 = "#282828",
   bg2 = "#453d41",
   bg3 = "#484848",

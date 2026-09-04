@@ -25,11 +25,13 @@ function M.set_highlights()
   link("NormalNC", "Normal")
   set("NormalFloat", { fg = c.fg, bg = c.bg_darker })
   set("NormalSB", { fg = c.fg, bg = c.bg_darker })
-  set("FloatBorder", { fg = c.bg4, bg = c.bg_darker })
+  -- Floating UI uses the unified soft white as its accent. The popup body
+  -- remains #181818; only borders/title bars/text use #E0E2EA.
+  set("FloatBorder", { fg = c.fg, bg = c.bg })
   set("FloatShadow", { bg = c.black, blend = 60 })
   set("FloatShadowThrough", { bg = c.black, blend = 75 })
-  link("FloatTitle", "Title")
-  link("FloatFooter", "Comment")
+  set("FloatTitle", { fg = c.black, bg = c.fg, bold = true })
+  set("FloatFooter", { fg = c.black, bg = c.fg })
 
   set("WinSeparator", { fg = c.bg4, bg = c.bg })
   link("VertSplit", "WinSeparator")
@@ -88,23 +90,27 @@ function M.set_highlights()
 
   ---------------------------------------------------------------------------
   -- Popup/completion UI (including newer Neovim groups)
+  --
+  -- Keep completion intentionally close to the original ring0-dark look:
+  -- neutral labels/kinds, one #181818 surface, and only a subtle gray
+  -- selection. Completion should not look like a second syntax highlighter.
   ---------------------------------------------------------------------------
-  set("Pmenu", { fg = c.fg, bg = c.bg_darker })
-  set("PmenuSel", { fg = c.fg_bright, bg = c.bg1, bold = true })
-  set("PmenuSbar", { bg = c.bg1 })
+  set("Pmenu", { fg = c.fg, bg = c.bg })
+  set("PmenuSel", { bg = c.bg1 })
+  set("PmenuSbar", { bg = c.bg })
   set("PmenuThumb", { bg = c.bg4 })
   link("PmenuBorder", "FloatBorder")
   set("PmenuShadow", { bg = c.black, blend = 60 })
   set("PmenuShadowThrough", { bg = c.black, blend = 75 })
 
-  set("PmenuKind", { fg = c.niagara, bg = c.bg_darker })
-  set("PmenuKindSel", { fg = c.niagara, bg = c.bg1, bold = true })
-  set("PmenuExtra", { fg = c.quartz, bg = c.bg_darker })
+  set("PmenuKind", { fg = c.fg, bg = c.bg })
+  set("PmenuKindSel", { fg = c.fg, bg = c.bg1 })
+  set("PmenuExtra", { fg = c.quartz, bg = c.bg })
   set("PmenuExtraSel", { fg = c.quartz, bg = c.bg1 })
-  set("PmenuMatch", { fg = c.yellow, bold = true })
-  set("PmenuMatchSel", { fg = c.yellow, bg = c.bg1, bold = true })
+  set("PmenuMatch", { fg = c.fg_bright, bold = true })
+  set("PmenuMatchSel", { fg = c.fg_bright, bg = c.bg1, bold = true })
 
-  set("ComplMatchIns", { fg = c.yellow, bold = true })
+  set("ComplMatchIns", { fg = c.fg_bright, bold = true })
   set("PreInsert", { fg = c.quartz })
   set("ComplHint", { fg = c.quartz })
   set("ComplHintMore", { fg = c.bg4 })
@@ -152,7 +158,8 @@ function M.set_highlights()
   link("Character", "String")
   link_many({ "Number", "Boolean", "Float" }, "Constant")
 
-  set("Identifier", { fg = c.fg_bright })
+  -- Keep ordinary identifiers neutral and readable on #181818.
+  set("Identifier", { fg = c.fg })
   set("Function", { fg = c.niagara })
 
   set("Statement", { fg = c.yellow, bold = true })
@@ -183,8 +190,11 @@ function M.set_highlights()
   -- Ring0 semantic groups used as stable plugin/LSP targets
   ---------------------------------------------------------------------------
   set("Ring0Builtin", { fg = c.yellow })
-  set("Ring0Member", { fg = c.niagara })
-  set("Ring0Property", { fg = c.niagara_dark })
+  -- Table keys / object members are identifier-like text, not muted metadata.
+  -- Lua Tree-sitter captures table keys as @property, so a dark semantic color
+  -- here makes large configuration tables unnecessarily low-contrast.
+  set("Ring0Member", { fg = c.fg })
+  set("Ring0Property", { fg = c.fg })
   set("Ring0Attribute", { fg = c.brown })
   set("Ring0Muted", { fg = c.quartz })
   set("Ring0Link", { fg = c.niagara, underline = true })
@@ -378,54 +388,43 @@ function M.set_highlights()
 
   ---------------------------------------------------------------------------
   -- nvim-cmp and blink.cmp
+  --
+  -- Before the expanded plugin coverage, completion kinds effectively fell
+  -- back to Pmenu and stayed neutral. Keep that visual behavior explicitly
+  -- so new plugins cannot re-introduce random blue/purple/green kind colors.
   ---------------------------------------------------------------------------
-  link("CmpItemAbbr", "Normal")
+  link("CmpItemAbbr", "Pmenu")
   set("CmpItemAbbrDeprecated", { fg = c.quartz, strikethrough = true })
-  link_many({ "CmpItemAbbrMatch", "CmpItemAbbrMatchFuzzy" }, "Ring0Builtin")
-  link("CmpItemMenu", "Comment")
+  link_many({ "CmpItemAbbrMatch", "CmpItemAbbrMatchFuzzy" }, "PmenuMatch")
+  link("CmpItemMenu", "PmenuExtra")
+  link("CmpItemKind", "PmenuKind")
 
-  link("BlinkCmpLabel", "Normal")
+  link("BlinkCmpLabel", "Pmenu")
   set("BlinkCmpLabelDeprecated", { fg = c.quartz, strikethrough = true })
-  link_many({ "BlinkCmpLabelMatch", "BlinkCmpLabelDetail", "BlinkCmpLabelDescription" }, "Ring0Muted")
+  link("BlinkCmpLabelMatch", "PmenuMatch")
+  link_many({ "BlinkCmpLabelDetail", "BlinkCmpLabelDescription", "BlinkCmpSource" }, "PmenuExtra")
+  link("BlinkCmpKind", "PmenuKind")
   link("BlinkCmpMenu", "Pmenu")
   link("BlinkCmpMenuSelection", "PmenuSel")
   link("BlinkCmpMenuBorder", "PmenuBorder")
   link("BlinkCmpDoc", "NormalFloat")
   link("BlinkCmpDocBorder", "FloatBorder")
+  link("BlinkCmpDocSeparator", "FloatBorder")
+  link("BlinkCmpDocCursorLine", "PmenuSel")
   link("BlinkCmpSignatureHelp", "NormalFloat")
   link("BlinkCmpSignatureHelpBorder", "FloatBorder")
+  link("BlinkCmpGhostText", "PmenuExtra")
 
-  local kind_links = {
-    Text = "Normal",
-    Method = "Function",
-    Function = "Function",
-    Constructor = "Function",
-    Field = "Ring0Member",
-    Variable = "Identifier",
-    Class = "Type",
-    Interface = "Type",
-    Module = "Type",
-    Property = "Ring0Property",
-    Unit = "Constant",
-    Value = "Constant",
-    Enum = "Type",
-    Keyword = "Statement",
-    Snippet = "String",
-    Color = "Special",
-    File = "Directory",
-    Reference = "Ring0Link",
-    Folder = "Directory",
-    EnumMember = "Constant",
-    Constant = "Constant",
-    Struct = "Type",
-    Event = "Special",
-    Operator = "Operator",
-    TypeParameter = "Type",
+  local completion_kinds = {
+    "Text", "Method", "Function", "Constructor", "Field", "Variable",
+    "Class", "Interface", "Module", "Property", "Unit", "Value", "Enum",
+    "Keyword", "Snippet", "Color", "File", "Reference", "Folder",
+    "EnumMember", "Constant", "Struct", "Event", "Operator", "TypeParameter",
   }
 
-  for kind, target in pairs(kind_links) do
-    link("CmpItemKind" .. kind, target)
-    link("BlinkCmpKind" .. kind, target)
+  for _, kind in ipairs(completion_kinds) do
+    link("CmpItemKind" .. kind, "PmenuKind")
+    link("BlinkCmpKind" .. kind, "PmenuKind")
   end
 
   ---------------------------------------------------------------------------
@@ -453,6 +452,15 @@ function M.set_highlights()
   link_many({ "NvimTreeGitDeleted", "NeoTreeGitDeleted" }, "Removed")
   link_many({ "NvimTreeSpecialFile", "NeoTreeFileNameOpened" }, "Statement")
   link("NeoTreeDimText", "Ring0Muted")
+
+  -- neo-tree creates its filter/input popups from these groups. Defining them
+  -- explicitly prevents neo-tree from deriving the old mauve title bar from
+  -- FloatBorder. The strip labelled "Filter:" is #E0E2EA with #181818 text.
+  set("NeoTreeFloatNormal", { fg = c.fg, bg = c.bg })
+  set("NeoTreeFloatBorder", { fg = c.fg, bg = c.bg })
+  set("NeoTreeFloatTitle", { fg = c.black, bg = c.fg, bold = true })
+  set("NeoTreeTitleBar", { fg = c.black, bg = c.fg })
+  set("NeoTreeFilterTerm", { fg = c.fg, bold = true })
 
   ---------------------------------------------------------------------------
   -- lazy.nvim / mason.nvim
