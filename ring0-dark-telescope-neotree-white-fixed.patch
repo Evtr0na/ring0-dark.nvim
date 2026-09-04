@@ -1,0 +1,30 @@
+diff --git a/lua/ring0dark/theme.lua b/lua/ring0dark/theme.lua
+index 184aaa3..e5e7be9 100644
+--- a/lua/ring0dark/theme.lua
++++ b/lua/ring0dark/theme.lua
+@@ -346,10 +346,12 @@
+   link("TelescopePreviewNormal", "NormalFloat")
+   link("TelescopePreviewBorder", "FloatBorder")
+   set("TelescopeSelection", { fg = c.fg_bright, bg = c.bg1 })
+-  link("TelescopeSelectionCaret", "Statement")
++  set("TelescopeSelectionCaret", { fg = c.white })
+   set("TelescopeMatching", { fg = c.yellow, bold = true })
+-  link("TelescopePromptPrefix", "Statement")
+-  link_many({ "TelescopePromptTitle", "TelescopeResultsTitle", "TelescopePreviewTitle" }, "Title")
++  set("TelescopePromptPrefix", { fg = c.white })
++  set("TelescopePromptTitle", { fg = c.white, bg = c.bg, bold = true })
++  set("TelescopeResultsTitle", { fg = c.white, bg = c.bg, bold = true })
++  set("TelescopePreviewTitle", { fg = c.white, bg = c.bg, bold = true })
+   ---------------------------------------------------------------------------
+ 
+ 
+@@ -414,7 +416,8 @@
+   ---------------------------------------------------------------------------
+   link_many({ "NvimTreeNormal", "NvimTreeNormalNC", "NeoTreeNormal", "NeoTreeNormalNC" }, "Normal")
+   link_many({ "NvimTreeWinSeparator", "NeoTreeWinSeparator" }, "WinSeparator")
+-  link_many({ "NvimTreeRootFolder", "NeoTreeRootName" }, "Title")
++  link("NvimTreeRootFolder", "Title")
++  set("NeoTreeRootName", { fg = c.white, bold = true })
+   link_many({ "NvimTreeFolderName", "NvimTreeOpenedFolderName", "NeoTreeDirectoryName", "NeoTreeDirectoryIcon" }, "Directory")
+   link_many({ "NvimTreeFolderIcon", "NvimTreeIndentMarker", "NeoTreeIndentMarker", "NeoTreeExpander" }, "Ring0Muted")
+   link_many({ "NvimTreeSymlink", "NeoTreeSymbolicLinkTarget" }, "Ring0Link")
