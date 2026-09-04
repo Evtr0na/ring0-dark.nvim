@@ -428,6 +428,18 @@ function M.set_highlights()
   end
 
   ---------------------------------------------------------------------------
+  -- Grapple.nvim
+  --
+  -- Grapple links its title/footer to FloatTitle/FloatFooter by default.
+  -- Keep Grapple's title and help footer on the normal #181818 surface so
+  -- they do not inherit the light title-strip treatment used by Neo-tree.
+  ---------------------------------------------------------------------------
+  link("GrappleFloat", "NormalFloat")
+  link("GrappleBorder", "FloatBorder")
+  set("GrappleTitle", { fg = c.fg, bg = c.bg, bold = true })
+  set("GrappleFooter", { fg = c.fg, bg = c.bg })
+
+  ---------------------------------------------------------------------------
   -- Which-key
   ---------------------------------------------------------------------------
   link("WhichKey", "Statement")
