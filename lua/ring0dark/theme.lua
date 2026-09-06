@@ -56,7 +56,7 @@ function M.set_highlights()
   set("Folded", { fg = c.quartz, bg = c.bg_darker })
 
   set("Directory", { fg = c.niagara, bold = true })
-  set("Cursor", { fg = c.black, bg = c.yellow })
+  set("Cursor", { fg = c.black, bg = c.white })
   link_many({ "lCursor", "CursorIM", "TermCursor" }, "Cursor")
   set("TermCursorNC", { fg = c.bg4, bg = c.quartz })
 
@@ -83,7 +83,7 @@ function M.set_highlights()
   set("StatusLine", { fg = c.white, bg = c.bg1 })
   set("StatusLineNC", { fg = c.quartz, bg = c.bg1 })
   set("WinBar", { fg = c.fg_bright, bg = c.bg, bold = true })
-  set("WinBarNC", { fg = c.quartz, bg = c.bg })
+  set("WinBarNC", { fg = c.bg4, bg = c.bg })
 
   set("TabLine", { fg = c.quartz, bg = c.bg1 })
   set("TabLineSel", { fg = c.yellow, bg = c.bg, bold = true })
