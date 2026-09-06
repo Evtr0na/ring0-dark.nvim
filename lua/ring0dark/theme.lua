@@ -65,12 +65,15 @@ function M.set_highlights()
 
   -- Search colors follow Gruber Darker's white/niagara contrast instead of
   -- Neovim's defaults, which prevents unexpected blue/purple fallbacks.
-  set("Search", { fg = c.fg_bright, bg = c.niagara_dark })
-  set("CurSearch", { fg = c.black, bg = c.fg_bright, bold = true })
-  link("IncSearch", "CurSearch")
+
+	set("Search", {fg = c.fg_bright, bg = c.niagara_dark,})
+	set("CurSearch", {fg =c.fg_bright , bg =c.niagara_dark})
+	-- set("CurSearch", {fg = c.black, bg = c.white, bold = true,})
+	link("IncSearch", "CurSearch")
+
   set("Substitute", { fg = c.black, bg = c.red_bright, bold = true })
-  set("MatchParen", { bg = "#5296CD", bold = true })
-  -- set("MatchParen", { bg = c.bg4, bold = true })
+  -- set("MatchParen", { bg = "#5296CD", bold = true })
+	set("MatchParen", { bg = c.bg4, bold = true })
 
   set("ErrorMsg", { fg = c.red, bg = c.bg,bold = true })
   set("WarningMsg", { fg = c.yellow, bold = true })
